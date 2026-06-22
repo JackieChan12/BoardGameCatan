@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DataStorage;
 using System;
 using System.Linq;
@@ -36,6 +37,8 @@ namespace UI.Game
         [Header("Table Colors")][Space(5)]
         [Tooltip("Players Colors")][SerializeField] 
         private Image[] playersColors = new Image[4];
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
         [Tooltip("White Player Color")][SerializeField] 
         private Color whitePlayerColor;
         [Tooltip("Red Player Color")][SerializeField] 
@@ -130,14 +133,18 @@ namespace UI.Game
                     };
                 }
                 
-                playersColors[i].color = player.color switch
+                // playersColors[i].color = player.color switch
+                // {
+                //     Player.Player.Color.Blue => bluePlayerColor,
+                //     Player.Player.Color.Red => redPlayerColor,
+                //     Player.Player.Color.Yellow => yellowPlayerColor,
+                //     Player.Player.Color.White => whitePlayerColor,
+                //     _ => playersColors[GameManager.State.CurrentPlayerId].color
+                // };
+                if (lsSprites != null && (int)player.color < lsSprites.Count)
                 {
-                    Player.Player.Color.Blue => bluePlayerColor,
-                    Player.Player.Color.Red => redPlayerColor,
-                    Player.Player.Color.Yellow => yellowPlayerColor,
-                    Player.Player.Color.White => whitePlayerColor,
-                    _ => playersColors[GameManager.State.CurrentPlayerId].color
-                };
+                    playersColors[i].sprite = lsSprites[(int)player.color];
+                }
             }
         }
     }

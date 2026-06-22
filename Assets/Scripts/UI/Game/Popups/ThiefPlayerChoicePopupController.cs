@@ -32,6 +32,8 @@ namespace UI.Game.Popups
         [Header("Players Colors")][Space(5)]
         [Tooltip("Players Colors")][SerializeField]
         private Image[] playersColors = new Image[4];
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
         
         [Header("Players Resources")][Space(5)]
         [Tooltip("Players Resources")]
@@ -63,14 +65,18 @@ namespace UI.Game.Popups
             for (var i = 0; i<playersColors.Length; i++)
             {
                 if (i == 3 && GameManager.State.Players.Length == 3) continue;
-                playersColors[i].color = GameManager.State.Players[i].color switch
+                // playersColors[i].color = GameManager.State.Players[i].color switch
+                // {
+                //     Player.Player.Color.Blue => Color.blue,
+                //     Player.Player.Color.Red => Color.red,
+                //     Player.Player.Color.Yellow => Color.yellow,
+                //     Player.Player.Color.White => Color.white,
+                //     _ => playersColors[i].color
+                // };
+                if (lsSprites != null && (int)GameManager.State.Players[i].color < lsSprites.Count)
                 {
-                    Player.Player.Color.Blue => Color.blue,
-                    Player.Player.Color.Red => Color.red,
-                    Player.Player.Color.Yellow => Color.yellow,
-                    Player.Player.Color.White => Color.white,
-                    _ => playersColors[i].color
-                };
+                    playersColors[i].sprite = lsSprites[(int)GameManager.State.Players[i].color];
+                }
             }
         }
         

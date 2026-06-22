@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using DataStorage;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace UI.Game.Popups
         [Header("Rank Elements")][Space(5)]
         [Tooltip("Rank Images")][SerializeField] 
         private Image[] rankImages;
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
         [Tooltip("Rank Names")][SerializeField]
         private Text[] rankNames;
         
@@ -112,14 +115,18 @@ namespace UI.Game.Popups
 
                 if (i != 3)
                 {
-                    rankImages[i].color = GameManager.State.Players[player.index].color switch
+                    // rankImages[i].color = GameManager.State.Players[player.index].color switch
+                    // {
+                    //     Player.Player.Color.Blue => Color.blue,
+                    //     Player.Player.Color.Red => Color.red,
+                    //     Player.Player.Color.Yellow => Color.yellow,
+                    //     Player.Player.Color.White => Color.white,
+                    //     _ => rankImages[i].color
+                    // };
+                    if (lsSprites != null && (int)GameManager.State.Players[player.index].color < lsSprites.Count)
                     {
-                        Player.Player.Color.Blue => Color.blue,
-                        Player.Player.Color.Red => Color.red,
-                        Player.Player.Color.Yellow => Color.yellow,
-                        Player.Player.Color.White => Color.white,
-                        _ => rankImages[i].color
-                    };
+                        rankImages[i].sprite = lsSprites[(int)GameManager.State.Players[player.index].color];
+                    }
                     rankNames[i].text = GameManager.State.Players[player.index].name;
                 }
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,9 @@ namespace UI.Game
         private Text playerNameText;
         [Tooltip("Current player score text (Optional)")][SerializeField]
         private Text scoreText;
+        
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
 
         [Header("Resources")][Space(5)]
         [Tooltip("Wood resource text")][SerializeField]
@@ -197,14 +201,15 @@ namespace UI.Game
 
             if (playerColorImage != null)
             {
-                playerColorImage.color = player.color switch
-                {
-                    Player.Player.Color.Blue => Color.blue,
-                    Player.Player.Color.Red => Color.red,
-                    Player.Player.Color.White => Color.white,
-                    Player.Player.Color.Yellow => Color.yellow,
-                    _ => playerColorImage.color
-                };
+                // playerColorImage.color = player.color switch
+                // {
+                //     Player.Player.Color.Blue => Color.blue,
+                //     Player.Player.Color.Red => Color.red,
+                //     Player.Player.Color.White => Color.white,
+                //     Player.Player.Color.Yellow => Color.yellow,
+                //     _ => playerColorImage.color
+                // };
+                playerColorImage.sprite = lsSprites[(int)player.color];  
             }
         }
 

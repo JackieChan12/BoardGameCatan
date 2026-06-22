@@ -28,6 +28,8 @@ namespace UI.Game.Popups
         private Text[] playersNames = new Text[4];
         [Tooltip("Players Colors")][SerializeField] 
         private Image[] playersColors = new Image[4];
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
         [Tooltip("Player Button Click Zoom Scale")][SerializeField] 
         private float playerButtonClickZoomScale;
         [Tooltip("Player Button Normal Zoom Scale")][SerializeField] 
@@ -326,14 +328,18 @@ namespace UI.Game.Popups
                 playersNames[player.index].text = player.name.ToString();
                 
                 //Destiny: Setting colors
-                playersColors[player.index].color = GameManager.State.Players[player.index].color switch
+                // playersColors[player.index].color = GameManager.State.Players[player.index].color switch
+                // {
+                //     Player.Player.Color.Blue => Color.blue,
+                //     Player.Player.Color.Red => Color.red,
+                //     Player.Player.Color.Yellow => Color.yellow,
+                //     Player.Player.Color.White => Color.white,
+                //     _ => playersColors[player.index].color
+                // };
+                if (lsSprites != null && (int)GameManager.State.Players[player.index].color < lsSprites.Count)
                 {
-                    Player.Player.Color.Blue => Color.blue,
-                    Player.Player.Color.Red => Color.red,
-                    Player.Player.Color.Yellow => Color.yellow,
-                    Player.Player.Color.White => Color.white,
-                    _ => playersColors[player.index].color
-                };
+                    playersColors[player.index].sprite = lsSprites[(int)GameManager.State.Players[player.index].color];
+                }
 
                 //Destiny: Showing only info about players that play (if 3 players, fourth is not shown)
                 playersButtons[player.index].gameObject.SetActive(true);

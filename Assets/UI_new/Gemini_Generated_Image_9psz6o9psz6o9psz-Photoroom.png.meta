@@ -263,6 +263,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Gemini_Generated_Image_9psz6o9psz6o9psz-Photoroom_7
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 350
+        width: 286
+        height: 283
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e431011f9610394cbb18e1f8e5f67ff
+      internalID: -1073296751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -284,6 +306,7 @@ TextureImporter:
       Gemini_Generated_Image_9psz6o9psz6o9psz-Photoroom_4: 559190502
       Gemini_Generated_Image_9psz6o9psz6o9psz-Photoroom_5: 692763808
       Gemini_Generated_Image_9psz6o9psz6o9psz-Photoroom_6: -161042949
+      Gemini_Generated_Image_9psz6o9psz6o9psz-Photoroom_7: -1073296751
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

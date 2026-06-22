@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.DataStorage.Managers;
 using DataStorage;
 using UnityEngine;
@@ -26,6 +27,8 @@ namespace UI.Game.Popups
         [Header("Transaction Sides")][Space(5)]
         [Tooltip("Images")][SerializeField]
         private Image[] playersColors = new Image[2];
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
         [Tooltip("Texts")][SerializeField]
         private Text[] playersNames = new Text[2];
         
@@ -112,22 +115,35 @@ namespace UI.Game.Popups
             playersNames[1].text = GameManager.State.Players[GameManager.TradeManager.LandTradeOfferTarget].name;
             
             //Destiny: Setting colors of offer giver (index 0) and offer receiver (index 1)
-            playersColors[0].color = GameManager.State.Players[GameManager.State.CurrentPlayerId].color switch
+            // playersColors[0].color = GameManager.State.Players[GameManager.State.CurrentPlayerId].color switch
+            // {
+            //     Player.Player.Color.Blue => Color.blue,
+            //     Player.Player.Color.Red => Color.red,
+            //     Player.Player.Color.Yellow => Color.yellow,
+            //     Player.Player.Color.White => Color.white,
+            //     _ => playersColors[GameManager.State.CurrentPlayerId].color
+            // };
+            // playersColors[1].color = GameManager.State.Players[GameManager.TradeManager.LandTradeOfferTarget].color switch
+            // {
+            //     Player.Player.Color.Blue => Color.blue,
+            //     Player.Player.Color.Red => Color.red,
+            //     Player.Player.Color.Yellow => Color.yellow,
+            //     Player.Player.Color.White => Color.white,
+            //     _ => playersColors[GameManager.TradeManager.LandTradeOfferTarget].color
+            // };
+            if (lsSprites != null)
             {
-                Player.Player.Color.Blue => Color.blue,
-                Player.Player.Color.Red => Color.red,
-                Player.Player.Color.Yellow => Color.yellow,
-                Player.Player.Color.White => Color.white,
-                _ => playersColors[GameManager.State.CurrentPlayerId].color
-            };
-            playersColors[1].color = GameManager.State.Players[GameManager.TradeManager.LandTradeOfferTarget].color switch
-            {
-                Player.Player.Color.Blue => Color.blue,
-                Player.Player.Color.Red => Color.red,
-                Player.Player.Color.Yellow => Color.yellow,
-                Player.Player.Color.White => Color.white,
-                _ => playersColors[GameManager.TradeManager.LandTradeOfferTarget].color
-            };
+                int giverColorIdx = (int)GameManager.State.Players[GameManager.State.CurrentPlayerId].color;
+                int receiverColorIdx = (int)GameManager.State.Players[GameManager.TradeManager.LandTradeOfferTarget].color;
+                if (giverColorIdx < lsSprites.Count)
+                {
+                    playersColors[0].sprite = lsSprites[giverColorIdx];
+                }
+                if (receiverColorIdx < lsSprites.Count)
+                {
+                    playersColors[1].sprite = lsSprites[receiverColorIdx];
+                }
+            }
         }
 
         /// <summary>

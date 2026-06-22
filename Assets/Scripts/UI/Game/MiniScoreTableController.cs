@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DataStorage;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ namespace UI.Game
         [Header("Slots")][Space(5)]
         [Tooltip("Slots Images")][SerializeField]
         private Image[] slotsImages;
+        [Tooltip("List Image avt")][SerializeField]
+        private List<Sprite> lsSprites;
         [Tooltip("Slots Values")][SerializeField] 
         private Text[] slotsValues;
         
@@ -70,14 +73,18 @@ namespace UI.Game
         {
             for (var i = 0; i < GameManager.State.Players.Length; i++)
             {
-                slotsImages[i].color = GameManager.State.Players[i].color switch
+                // slotsImages[i].color = GameManager.State.Players[i].color switch
+                // {
+                //     Player.Player.Color.Blue => Color.blue,
+                //     Player.Player.Color.Red => Color.red,
+                //     Player.Player.Color.White => Color.white,
+                //     Player.Player.Color.Yellow => Color.yellow,
+                //     _ => slotsImages[i].color
+                // };
+                if (lsSprites != null && (int)GameManager.State.Players[i].color < lsSprites.Count)
                 {
-                    Player.Player.Color.Blue => Color.blue,
-                    Player.Player.Color.Red => Color.red,
-                    Player.Player.Color.White => Color.white,
-                    Player.Player.Color.Yellow => Color.yellow,
-                    _ => slotsImages[i].color
-                };
+                    slotsImages[i].sprite = lsSprites[(int)GameManager.State.Players[i].color];
+                }
             }
         }
 
