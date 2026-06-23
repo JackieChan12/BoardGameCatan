@@ -1535,8 +1535,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Giao th\u01B0\u01A1ng n\u1ED9i b\u1ED9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1560,8 +1560,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 16.5
+  m_fontSizeBase: 16.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 7.7
@@ -2333,8 +2333,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "K\u1EBFt th\xFAc l\u01B0\u1EE3t"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2624,8 +2624,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u0110\u1EB7t l\u1EA1i"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4243,8 +4243,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Giao th\u01B0\u01A1ng"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4379,7 +4379,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_Font: {fileID: 12800000, guid: 92ae013ec7062374289e21c54463ba06, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
@@ -4391,7 +4391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "S\u1EEC D\u1EE4NG TH\u1EBA"
+  m_Text: "S\u1EED d\u1EE5ng th\u1EBB"
 --- !u!1 &5994814306932425186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,8 +5405,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Mua th\u1EBB b\xE0i"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5577,8 +5577,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Th\u1EBB"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5602,8 +5602,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
-  m_fontSizeBase: 17
+  m_fontSize: 19.8
+  m_fontSizeBase: 19.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5789,8 +5789,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Giao th\u01B0\u01A1ng C\u1EA3ng bi\u1EC3n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5814,8 +5814,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 16.5
+  m_fontSizeBase: 16.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 7.7
@@ -6462,8 +6462,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ho\u1EA1t \u0111\u1ED9ng"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
-  m_sharedMaterial: {fileID: 6298479787127805739, guid: a07ef0a220fa8de469b0fd1db13252ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
+  m_sharedMaterial: {fileID: -6073985062414438370, guid: c63764e09a03c194dae26a68dbad6ace, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6487,8 +6487,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
-  m_fontSizeBase: 17
+  m_fontSize: 19.8
+  m_fontSizeBase: 19.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6564,7 +6564,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6807740547967286635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.7600395}
+  m_AnchorMin: {x: 0, y: 0.75895745}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -6872,7 +6872,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4599109837796644659}
   m_Direction: 2
   m_Value: 1.0000004
-  m_Size: 0.2399605
+  m_Size: 0.24104257
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

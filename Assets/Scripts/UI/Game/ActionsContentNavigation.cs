@@ -167,6 +167,13 @@ namespace UI.Game
         /// </summary>
         private void OnTurnSkipButton()
         {
+            // Close active tabs when ending turn
+            var tabsNav = GetComponentInParent<PlayerUIController>()?.GetComponentInChildren<TabsUINavigation>();
+            if (tabsNav != null)
+            {
+                tabsNav.CloseTab();
+            }
+
             //Destiny: Resets cards scrollbar
             StartCoroutine(ResetCardsScrollbar());
             

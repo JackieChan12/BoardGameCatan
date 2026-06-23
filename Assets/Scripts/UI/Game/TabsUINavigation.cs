@@ -214,5 +214,10 @@ namespace UI.Game
             // Initially hide the background panel
             slidingUI.gameObject.SetActive(false);
         }
+
+        public void CloseTab()
+        {
+            actionsButton.onClick.Invoke();
+        }
     }
 }
