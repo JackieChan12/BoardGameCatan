@@ -39,8 +39,8 @@ namespace Board.NumberOverField
 
             //Destiny: Most recent numbers (6,8) have different colors and styles
             numberOverField.color = value is 6 or 8 ? recentColor : normalColor;
-            numberOverField.fontStyle = value is 6 or 8 ? FontStyles.Bold : FontStyles.Normal;
-            numberOverField.fontSize = value is 6 or 8 ? StandardFontSize : CommonFontSize;
+            numberOverField.fontStyle = value is 6 or 8 ? (FontStyles.Bold | FontStyles.Underline ): (FontStyles.Normal | FontStyles.Underline);
+            numberOverField.fontSize = CommonFontSize;//value is 6 or 8 ? StandardFontSize : CommonFontSize;
 
             //Destiny: Update the number value
             numberOverField.text = value.ToString();

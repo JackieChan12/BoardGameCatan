@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.DataStorage.Managers;
 using Board;
 using DataStorage;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Board.BoardElement;
@@ -80,6 +82,16 @@ namespace UI.Game
         private string endGameText;
 
         private bool merchantMenuShown;
+        private TextMeshProUGUI turnskipText;
+
+
+        private void Awake()
+        {
+            if (turnSkipButton != null)
+            {
+                turnskipText = turnSkipButton.GetComponentInChildren<TextMeshProUGUI>();
+            }
+        }
 
         /// <summary>
         /// Throws the dice
@@ -359,7 +371,10 @@ namespace UI.Game
         /// </summary>
         private void TurnSkipButtonText()
         {
-            turnSkipButton.GetComponentInChildren<Text>().text = GameManager.EndGameCondition() ? endGameText : turnSkipText;
+            if (turnskipText != null)
+            {
+                turnskipText.text = GameManager.EndGameCondition() ? endGameText : turnSkipText;
+            }
         }
 
         /// <summary>

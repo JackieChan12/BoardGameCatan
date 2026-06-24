@@ -74,6 +74,7 @@ namespace UI.Game
         private Vector3 actionsButtonPosition;
         private Vector3 cardsButtonPosition;
 
+        
         public void OnActionButtonClick()
         {
             if (isNowSliding)

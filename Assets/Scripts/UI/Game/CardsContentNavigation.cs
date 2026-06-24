@@ -158,12 +158,16 @@ namespace UI.Game
         {
             knightCardButton.interactable = 
                 GameManager.CardsManager.CheckIfCurrentPlayerCanUseCard(Cards.CardType.Knight, playerId);
+            knightCardButton.image.raycastTarget = knightCardButton.interactable;
             roadBuildCardButton.interactable = 
                 GameManager.CardsManager.CheckIfCurrentPlayerCanUseCard(Cards.CardType.RoadBuild, playerId);
+            roadBuildCardButton.image.raycastTarget = roadBuildCardButton.interactable;
             inventionCardButton.interactable = 
                 GameManager.CardsManager.CheckIfCurrentPlayerCanUseCard(Cards.CardType.Invention, playerId);
+            inventionCardButton.image.raycastTarget = inventionCardButton.interactable;
             monopolCardButton.interactable = 
                 GameManager.CardsManager.CheckIfCurrentPlayerCanUseCard(Cards.CardType.Monopol, playerId);
+            monopolCardButton.image.raycastTarget = monopolCardButton.interactable;
         }
 
         /// <summary>
