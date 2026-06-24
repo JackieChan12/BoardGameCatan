@@ -41,6 +41,25 @@ namespace UI.Game
         private int leftDiceValue, rightDiceValue;
         
         /// <summary>
+        /// Adds a click listener to the dice images for manual roll support.
+        /// </summary>
+        public void AddClickToRollListener(UnityEngine.Events.UnityAction action)
+        {
+            if (leftDice != null)
+            {
+                var btn = leftDice.gameObject.GetComponent<Button>();
+                if (btn == null) btn = leftDice.gameObject.AddComponent<Button>();
+                btn.onClick.AddListener(action);
+            }
+            if (rightDice != null)
+            {
+                var btn = rightDice.gameObject.GetComponent<Button>();
+                if (btn == null) btn = rightDice.gameObject.AddComponent<Button>();
+                btn.onClick.AddListener(action);
+            }
+        }
+
+        /// <summary>
         /// Animates the 3D dice and throws the dice
         /// </summary>
         public void AnimateDiceOnThrow()

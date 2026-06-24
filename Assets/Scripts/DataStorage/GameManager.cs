@@ -45,6 +45,9 @@ namespace DataStorage
         //Destiny: Logs list
         public static List<string> Logs = new();
 
+        // Event raised when player turn switches or setup completes
+        public static Action OnTurnChanged;
+
         /// <summary>
         /// Setting up game manager
         /// </summary>
@@ -61,6 +64,7 @@ namespace DataStorage
             PopupManager.Setup();
 
             EndGame = false;
+            OnTurnChanged?.Invoke();
         }
 
         /// <summary>
@@ -98,6 +102,8 @@ namespace DataStorage
             {
                 SwitchToNextPlayer();
             }
+
+            OnTurnChanged?.Invoke();
         }
         
         /// <summary>
@@ -141,6 +147,14 @@ namespace DataStorage
                 Player.Player.Color.Blue => Color.blue,
                 _ => Color.grey
             };
+        }
+
+        /// <summary>
+        /// Check if the dice should be automatically rolled
+        /// </summary>
+        public static bool ShouldAutoRollDice()
+        {
+            return false;
         }
 
         /// <summary>

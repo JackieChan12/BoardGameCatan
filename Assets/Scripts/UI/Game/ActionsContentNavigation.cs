@@ -62,6 +62,10 @@ namespace UI.Game
         [Header("Real Dice Component")][Space(5)]
         [Tooltip("Dice Controller")][SerializeField]
         private DiceController diceController;
+
+        [Header("Manual Roll Components")][Space(5)]
+        [Tooltip("Throw Dice Button for this specific player")][SerializeField]
+        private Button throwDiceButton;
         
         //Destiny: Cards scrollbar needed to reset
         [Header("Cards Scrollbar Rect")][Space(5)]
@@ -213,7 +217,16 @@ namespace UI.Game
             GameManager.State.PlayerIdWithAwardedPathAtBegining = GameManager.LongestPathManager.GetPlayerIdWithAwardedLongestPath();
 
             if (GameManager.State.SwitchingGameMode == SwitchingMode.GameSwitching)
-                OnThrowDiceButton();
+            {
+                if (GameManager.ShouldAutoRollDice())
+                {
+                    OnThrowDiceButton();
+                }
+                else
+                {
+                    GameManager.State.MovingUserMode = MovingMode.ThrowDice;
+                }
+            }
         }
 
         /// <summary>
@@ -391,9 +404,20 @@ namespace UI.Game
             SetButtonsWithIcons();
 
             if (GameManager.State.Mode == CatanMode.Basic && !GameManager.LoadingGame)
-                OnThrowDiceButton();
+            {
+                if (GameManager.ShouldAutoRollDice())
+                {
+                    OnThrowDiceButton();
+                }
+                else
+                {
+                    GameManager.State.MovingUserMode = MovingMode.ThrowDice;
+                }
+            }
             else if(GameManager.LoadingGame) 
+            {
                 diceController.ShowDicesWithoutAnimation(GameManager.State.LeftDice, GameManager.State.RightDice);
+            }
         }
 
         public void UpdateUI()
@@ -423,11 +447,27 @@ namespace UI.Game
                 TurnSkipButtonActivity();
                 TurnSkipButtonText();
                 CancelButtonActivity();
+                ThrowDiceButtonActivity();
             }
             else
             {
                 DisableAllInteractionButtons();
             }
+        }
+
+
+        /// <summary>
+        /// Blocks throw dice button if it's not time to throw dice
+        /// </summary>
+        private void ThrowDiceButtonActivity()
+        {
+            if (throwDiceButton == null) return;
+            
+            bool canThrow = GameManager.State.MovingUserMode == MovingMode.ThrowDice && 
+                            GameManager.State.CurrentDiceThrownNumber == 0 &&
+                            !GameManager.PopupManager.CheckIfWindowShown();
+            
+            throwDiceButton.interactable = canThrow;
         }
 
         private void DisableAllInteractionButtons()
@@ -446,6 +486,8 @@ namespace UI.Game
 
             if (landTradeButton != null) landTradeButton.interactable = false;
             if (seaTradeButton != null) seaTradeButton.interactable = false;
+
+            if (throwDiceButton != null) throwDiceButton.interactable = false;
         }
     }
 }

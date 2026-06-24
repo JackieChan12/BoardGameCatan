@@ -109,6 +109,8 @@ namespace UI.Game.Popups
         private List<PlayerThiefPayRequest> playerThiefPayRequests;
         private PlayerThiefPayRequest currentRequestHandled;
 
+        public int ActivePlayerId => currentRequestHandled != null ? currentRequestHandled.PlayerIndex : -1;
+
         void Start()
         {
             //Destiny: Usage of + - buttons

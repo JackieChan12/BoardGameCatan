@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using DataStorage;
 using Board;
 using Assets.Scripts.Board.States;
@@ -28,6 +29,11 @@ namespace UI.Game
         [Tooltip("List Image avt")][SerializeField]
         private List<Sprite> lsSprites;
 
+        [Tooltip("Image hiển thị và xoay loop khi đến lượt người chơi này")][SerializeField]
+        private Image turnActiveImage;
+
+        private Tween rotationTween;
+
         [Header("Resources")][Space(5)]
         [Tooltip("Wood resource text")][SerializeField]
         private Text woodResourceText;
@@ -45,6 +51,12 @@ namespace UI.Game
         public ActionsContentNavigation actionsNav;
         [Tooltip("Cards tab component")]
         public CardsContentNavigation cardsNav;
+
+        [Header("Manual Roll Components")][Space(5)]
+        [Tooltip("Throw Dice Button for this specific player")][SerializeField]
+        private Button throwDiceButton;
+        [Tooltip("Dice Controller")][SerializeField]
+        private DiceController diceController;
         
         [Header("Incoming Resources")] [Space(5)] 
         [Tooltip("Incoming resource motion speed")] [SerializeField]
@@ -101,6 +113,11 @@ namespace UI.Game
                 actionsNav.playerId = playerId;
             }
 
+            if (diceController == null)
+            {
+                diceController = FindObjectOfType<DiceController>();
+            }
+
             cardsNav = GetComponentInChildren<CardsContentNavigation>(true);
             if (cardsNav != null)
             {
@@ -131,6 +148,38 @@ namespace UI.Game
             }
         }
 
+        void Start()
+        {
+            // Đăng ký sự kiện thay đổi lượt chơi để cập nhật hoạt ảnh xoay
+            GameManager.OnTurnChanged += HandleTurnChanged;
+
+            if (throwDiceButton != null)
+            {
+                throwDiceButton.onClick.AddListener(() => {
+                    if (playerId == GameManager.State.CurrentPlayerId)
+                    {
+                        RollDice();
+                    }
+                });
+            }
+
+            if (diceController != null)
+            {
+                diceController.AddClickToRollListener(() => {
+                    if (playerId == GameManager.State.CurrentPlayerId && 
+                        GameManager.State.MovingUserMode == Board.States.GameState.MovingMode.ThrowDice && 
+                        GameManager.State.CurrentDiceThrownNumber == 0 &&
+                        !GameManager.PopupManager.CheckIfWindowShown())
+                    {
+                        RollDice();
+                    }
+                });
+            }
+
+            // Cập nhật trạng thái lượt chơi lần đầu tiên
+            HandleTurnChanged();
+        }
+
         void Update()
         {
             if (GameManager.State == null || GameManager.State.Players == null)
@@ -147,6 +196,9 @@ namespace UI.Game
             UpdatePlayerInfo();
             UpdateResources();
 
+            // Cập nhật hiển thị ẩn hiện nút xúc xắc và các tab
+            UpdateDiceAndTabsVisibility();
+
             // Quản lý và kích hoạt cập nhật các component con tương ứng
             if (actionsNav != null)
             {
@@ -160,6 +212,42 @@ namespace UI.Game
 
             // Mỗi người chơi tự quản lý hiệu ứng tài nguyên bay lên của mình
             CheckIncomingResources();
+        }
+
+        private void RollDice()
+        {
+            if (diceController != null)
+            {
+                diceController.AnimateDiceOnThrow();
+            }
+        }
+
+        private void UpdateDiceAndTabsVisibility()
+        {
+            if (GameManager.State == null) return;
+
+            bool isMyTurn = (playerId == GameManager.State.CurrentPlayerId);
+            bool hasNotRolledYet = GameManager.State.MovingUserMode == Board.States.GameState.MovingMode.ThrowDice && 
+                                   GameManager.State.CurrentDiceThrownNumber == 0;
+
+            var tabsNav = GetComponentInChildren<TabsUINavigation>(true);
+            
+            if (isMyTurn && hasNotRolledYet)
+            {
+                if (throwDiceButton != null) throwDiceButton.gameObject.SetActive(true);
+                if (tabsNav != null && tabsNav.gameObject.activeSelf)
+                {
+                    tabsNav.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                if (throwDiceButton != null) throwDiceButton.gameObject.SetActive(false);
+                if (tabsNav != null && !tabsNav.gameObject.activeSelf)
+                {
+                    tabsNav.gameObject.SetActive(true);
+                }
+            }
         }
 
         /// <summary>
@@ -317,6 +405,70 @@ namespace UI.Game
                     }
                     incomingIronText.gameObject.SetActive(false);
                     break;
+            }
+        }
+
+        private void UpdateTurnRotation(bool isMyTurn)
+        {
+            if (turnActiveImage == null) return;
+
+            if (isMyTurn)
+            {
+                // Tự động bật image lên nếu nó chưa active
+                if (!turnActiveImage.gameObject.activeSelf)
+                {
+                    turnActiveImage.gameObject.SetActive(true);
+                }
+
+                // Nếu chưa có tween xoay hoặc tween bị hủy, tạo tween mới xoay loop vô tận
+                if (rotationTween == null || !rotationTween.IsActive())
+                {
+                    turnActiveImage.transform.localRotation = Quaternion.identity;
+                    rotationTween = turnActiveImage.transform.DOLocalRotate(new Vector3(0, 0, -360), 2f, RotateMode.FastBeyond360)
+                        .SetLoops(-1, LoopType.Incremental)
+                        .SetEase(Ease.Linear);
+                }
+            }
+            else
+            {
+                // Nếu hết lượt, dừng tween và tắt image
+                if (rotationTween != null && rotationTween.IsActive())
+                {
+                    rotationTween.Kill();
+                    rotationTween = null;
+                }
+
+                if (turnActiveImage.gameObject.activeSelf)
+                {
+                    turnActiveImage.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        private void HandleTurnChanged()
+        {
+            if (GameManager.State == null || GameManager.State.Players == null)
+            {
+                return;
+            }
+
+            if (playerId < 0 || playerId >= GameManager.State.Players.Length || GameManager.State.Players[playerId] == null)
+            {
+                return;
+            }
+
+            bool isMyTurn = GameManager.State.CurrentPlayerId == playerId;
+            UpdateTurnRotation(isMyTurn);
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.OnTurnChanged -= HandleTurnChanged;
+
+            // Đảm bảo Kill tween khi object bị hủy để tránh lỗi rò rỉ bộ nhớ
+            if (rotationTween != null && rotationTween.IsActive())
+            {
+                rotationTween.Kill();
             }
         }
     }
