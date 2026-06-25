@@ -98,6 +98,12 @@ namespace UI.MainMenu.Navigation
             //Destiny: Default number of players is 3
             numberOfPlayers = 3;
             
+            // Hạn chế cơ chế load game
+            if (loadGameButton != null)
+            {
+                loadGameButton.gameObject.SetActive(false);
+            }
+            
             //Destiny: Binding buttons with it's features
             startButton.onClick.AddListener(OnStartButtonClick);
             loadGameButton.onClick.AddListener(OnLoadGameButtonClick);

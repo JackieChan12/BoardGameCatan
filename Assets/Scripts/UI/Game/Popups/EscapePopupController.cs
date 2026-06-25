@@ -39,6 +39,12 @@ namespace UI.Game.Popups
         {
             clepsydra.SetActive(false);
             
+            // Hạn chế cơ chế save game
+            if (saveGameButton != null)
+            {
+                saveGameButton.gameObject.SetActive(false);
+            }
+            
             //Destiny: Assigning events on clicking buttons
             cancelButton.onClick.AddListener(HidePopup);
             saveGameButton.onClick.AddListener(ShowSaveGameInterface);

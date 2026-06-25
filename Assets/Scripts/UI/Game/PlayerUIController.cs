@@ -461,6 +461,7 @@ namespace UI.Game
             UpdateTurnRotation(isMyTurn);
         }
 
+
         private void OnDestroy()
         {
             GameManager.OnTurnChanged -= HandleTurnChanged;

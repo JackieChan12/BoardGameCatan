@@ -72,6 +72,11 @@ namespace Player
         /// </summary>
         public CardType BuyCard()
         {
+            if (GameManager.CardsManager.Deck == null || GameManager.CardsManager.Deck.Count == 0)
+            {
+                UnityEngine.Debug.LogError("Bộ bài (Deck) rỗng hoặc chưa được khởi tạo!");
+                return CardType.None;
+            }
             var card = GameManager.CardsManager.Deck.First();
             if (!CanBuyCard() || !properties.cards.AddCard(card))
             {

@@ -120,7 +120,8 @@ namespace Assets.Scripts.DataStorage.Managers
             }
 
             //Destiny: Shuffle the cards
-            Deck = orderedDeck.OrderBy(x => Guid.NewGuid().ToString()).ToList();
+            System.Random rand = new System.Random();
+            Deck = orderedDeck.OrderBy(x => rand.Next()).ToList();
         }
     }
 }

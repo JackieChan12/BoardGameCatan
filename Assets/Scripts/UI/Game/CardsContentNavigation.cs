@@ -41,21 +41,51 @@ namespace UI.Game
         private Cards.CardType cardChosen;
         private Vector3 standardCardScale;
 
-        void Start()
+        private bool isInitialized = false;
+
+        private void EnsureInitialized()
         {
+            if (isInitialized) return;
+            
             useCardButton.interactable = false;
             cardChosen = Cards.CardType.None;
-            standardCardScale = knightCardButton.gameObject.transform.localScale;
             
-            knightCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.Knight);});
-            roadBuildCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.RoadBuild);});
-            inventionCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.Invention);});
-            monopolCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.Monopol);});
-            useCardButton.onClick.AddListener(OnCardUseButtonClick);
+            if (knightCardButton != null)
+            {
+                standardCardScale = knightCardButton.gameObject.transform.localScale;
+                if (standardCardScale == Vector3.zero)
+                {
+                    standardCardScale = Vector3.one;
+                }
+            }
+            else
+            {
+                standardCardScale = Vector3.one;
+            }
+            
+            if (knightCardButton != null) knightCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.Knight);});
+            if (roadBuildCardButton != null) roadBuildCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.RoadBuild);});
+            if (inventionCardButton != null) inventionCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.Invention);});
+            if (monopolCardButton != null) monopolCardButton.onClick.AddListener(() => { ChooseCardButton(Cards.CardType.Monopol);});
+            if (useCardButton != null) useCardButton.onClick.AddListener(OnCardUseButtonClick);
+            
+            isInitialized = true;
+        }
+
+        void Start()
+        {
+            EnsureInitialized();
         }
         
         public void UpdateUI()
         {
+            if (!gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
+            EnsureInitialized();
+
             if (playerId == GameManager.State.CurrentPlayerId)
             {
                 BlockCardsIfCannotBeUsed();

@@ -29,6 +29,18 @@ namespace Player
         private int usedKnightCards;
         private List<CardType> blockedCards;
 
+        private List<CardType> BlockedCardsList
+        {
+            get
+            {
+                if (blockedCards == null)
+                {
+                    blockedCards = new List<CardType>();
+                }
+                return blockedCards;
+            }
+        }
+
         public Cards()
         {
             knightCards = 0;
@@ -41,7 +53,7 @@ namespace Player
 
         public bool CheckIfPlayerBoughtCardThisRound()
         {
-            return blockedCards.Count > 0;
+            return BlockedCardsList.Count > 0;
         }
 
         /// <summary>
@@ -97,7 +109,7 @@ namespace Player
 
             if (type != CardType.VictoryPoint)
             {
-                blockedCards.Add(type);
+                BlockedCardsList.Add(type);
             }
 
             return true;
@@ -119,10 +131,10 @@ namespace Player
         {
             Dictionary<CardType, bool> isLastBlocked = new Dictionary<CardType, bool>
             {
-                { CardType.Invention, blockedCards.Contains(CardType.Invention) && inventionCards == 1 },
-                { CardType.Monopol, blockedCards.Contains(CardType.Monopol) && monopolCards == 1 },
-                { CardType.Knight, blockedCards.Contains(CardType.Knight) && knightCards == 1 },
-                { CardType.RoadBuild, blockedCards.Contains(CardType.RoadBuild) && roadBuildCards == 1 }
+                { CardType.Invention, BlockedCardsList.Contains(CardType.Invention) && inventionCards == 1 },
+                { CardType.Monopol, BlockedCardsList.Contains(CardType.Monopol) && monopolCards == 1 },
+                { CardType.Knight, BlockedCardsList.Contains(CardType.Knight) && knightCards == 1 },
+                { CardType.RoadBuild, BlockedCardsList.Contains(CardType.RoadBuild) && roadBuildCards == 1 }
             };
 
             return isLastBlocked;
