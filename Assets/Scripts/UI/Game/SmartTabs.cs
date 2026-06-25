@@ -13,6 +13,9 @@ namespace UI.Game
         private bool canReturnToDefaultTab;
         
        
+        private bool wasActiveLastFrame;
+        
+       
         private PlayerUIController playerUI;
 
         void Start()
@@ -24,6 +27,7 @@ namespace UI.Game
             lastSelectedElement = GameManager.Selected.Element;
             lastActiveContent = GetComponent<TabsUINavigation>().activeContent;
             canReturnToDefaultTab = false;
+            wasActiveLastFrame = (playerUI != null && playerUI.playerId == GameManager.State.CurrentPlayerId);
 
             //Destiny: First invoke of smart tabs
             InvokeSmartActions();
@@ -36,9 +40,20 @@ namespace UI.Game
             {
                 playerUI = GetComponentInParent<PlayerUIController>();
             }
-            if (playerUI != null && playerUI.playerId != GameManager.State.CurrentPlayerId)
+            
+            bool isActiveTurn = (playerUI != null && playerUI.playerId == GameManager.State.CurrentPlayerId);
+            if (!isActiveTurn)
             {
+                wasActiveLastFrame = false;
                 return;
+            }
+
+            if (!wasActiveLastFrame)
+            {
+                wasActiveLastFrame = true;
+                // Force a different value for lastMovingUserMode to trigger update on new turn activation
+                lastMovingUserMode = GameManager.State.MovingUserMode == GameState.MovingMode.ThrowDice ? 
+                    GameState.MovingMode.Normal : GameState.MovingMode.ThrowDice;
             }
 
             //Destiny: Lowest priority - smart tabs on user moving mode
@@ -87,10 +102,10 @@ namespace UI.Game
             if (GameManager.State.MovingUserMode is
                 GameState.MovingMode.ThrowDice or GameState.MovingMode.MovingThief or
                 GameState.MovingMode.OnePathForFree or GameState.MovingMode.TwoPathsForFree or
-                GameState.MovingMode.BuildPath ||
-                (GameManager.State.BasicMovingUserMode is 
-                GameState.BasicMovingMode.TradePhase or GameState.BasicMovingMode.BuildPhase && 
-                 GameManager.State.MovingUserMode == GameState.MovingMode.Normal))
+                GameState.MovingMode.BuildPath or GameState.MovingMode.BuildVillage or GameState.MovingMode.EndTurn ||
+                (GameManager.State.MovingUserMode == GameState.MovingMode.Normal &&
+                 (GameManager.State.Mode == GameState.CatanMode.Advanced ||
+                  GameManager.State.BasicMovingUserMode is GameState.BasicMovingMode.TradePhase or GameState.BasicMovingMode.BuildPhase)))
             {
                 GetComponent<TabsUINavigation>().activeContent = TabsUINavigation.ActiveContent.None;
                 GetComponent<TabsUINavigation>().OnActionButtonClick();

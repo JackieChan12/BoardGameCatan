@@ -218,7 +218,10 @@ namespace UI.Game
 
         public void CloseTab()
         {
-            actionsButton.onClick.Invoke();
+            if (state == SlideState.SlidedOn)
+            {
+                StartCoroutine(SlideOff());
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ namespace UI.Game.Popups
         private GameObject background;
         
         [Header("Texts for events")][Space(5)]
+        [Tooltip("Throw dice text")][SerializeField]
+        private string[] throwDiceText = new string[] { "Đổ xúc xắc", "Nhấn nút \"ĐỔ XÚC XẮC\" hoặc nhấp vào xúc xắc 3D" };
         [Tooltip("Move thief event text")][SerializeField]
         private string[] moveThiefText;
         [Tooltip("One path for free text")][SerializeField]
@@ -58,6 +60,7 @@ namespace UI.Game.Popups
             {
                 infoText.text = GameManager.State.MovingUserMode switch
                 {
+                    MovingMode.ThrowDice => throwDiceText[0],
                     MovingMode.MovingThief => moveThiefText[0],
                     MovingMode.OnePathForFree => onePathForFreeText[0],
                     MovingMode.TwoPathsForFree => twoPathsForFreeText[0],
@@ -69,6 +72,7 @@ namespace UI.Game.Popups
 
                 additionalInfoText.text = GameManager.State.MovingUserMode switch
                 {
+                    MovingMode.ThrowDice => throwDiceText[1],
                     MovingMode.MovingThief => moveThiefText[1],
                     MovingMode.OnePathForFree => onePathForFreeText[1],
                     MovingMode.TwoPathsForFree => twoPathsForFreeText[1],
