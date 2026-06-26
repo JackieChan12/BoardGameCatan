@@ -197,9 +197,15 @@ namespace UI.Game
             ShowAdvancedMerchantMenu(false);
             
             //Destiny: If player has at least 10 points at the end of his turn than end the game
-            if (GameManager.EndGameCondition())
+            if (GameManager.EndGameCondition() || GameManager.EndGame)
             {
-                GameManager.PopupManager.PopupsShown[PopupManager.END_GAME_POPUP] = true;
+                GameManager.EndGame = true;
+                GameManager.SwitchPlayer();
+                if (GameManager.EndGameCondition())
+                {
+                    GameManager.PopupManager.PopupsShown[PopupManager.END_GAME_POPUP] = true;
+                }
+                return;
             }
 
             GameManager.State.Players[playerId].properties.cards.UnblockCards();
@@ -283,7 +289,8 @@ namespace UI.Game
         /// </summary>
         private void TradeButtonActivity()
         {
-            var val =  !(GameManager.State.MovingUserMode != MovingMode.Normal ||
+            var val =  !GameManager.EndGame &&
+                       !(GameManager.State.MovingUserMode != MovingMode.Normal ||
                          GameManager.State.BasicMovingUserMode == BasicMovingMode.BuildPhase ||
                          GameManager.PopupManager.CheckIfWindowShown());
             tradeButton.interactable = val;
@@ -298,7 +305,7 @@ namespace UI.Game
         /// </summary>
         private void BuyCardButtonActivity()
         {
-            if (GameManager.CardsManager.CheckIfCurrentPlayerCanBuyCard())
+            if (!GameManager.EndGame && GameManager.CardsManager.CheckIfCurrentPlayerCanBuyCard())
             {
                 buyCardButton.interactable = true;
                 buyCardIcon.color = buyCardIconColor;
@@ -315,6 +322,13 @@ namespace UI.Game
         /// </summary>
         private void TurnSkipButtonActivity()
         {
+            if (GameManager.EndGame)
+            {
+                turnSkipButton.interactable = true;
+                turnSkipIcon.color = turnSkipIconColor;
+                return;
+            }
+
             if (GameManager.PopupManager.CheckIfWindowShown() || 
                 (GameManager.State.MovingUserMode != MovingMode.Normal && 
                 GameManager.State.MovingUserMode != MovingMode.EndTurn))
@@ -361,7 +375,7 @@ namespace UI.Game
 
         private void CancelButtonActivity()
         {
-            bool canCancel = GameManager.BuildManager.BuildingHistory.Count > 0;
+            bool canCancel = !GameManager.EndGame && GameManager.BuildManager.BuildingHistory.Count > 0;
             cancelButton.interactable = canCancel;
             cancelIcon.color = canCancel ? cancelIconColor : Color.gray;
         }
@@ -373,7 +387,7 @@ namespace UI.Game
         {
             if (turnskipText != null)
             {
-                turnskipText.text = GameManager.EndGameCondition() ? endGameText : turnSkipText;
+                turnskipText.text = (GameManager.EndGameCondition() || GameManager.EndGame) ? endGameText : turnSkipText;
             }
         }
 

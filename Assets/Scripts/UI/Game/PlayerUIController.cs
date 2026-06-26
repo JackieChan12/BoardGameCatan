@@ -232,7 +232,7 @@ namespace UI.Game
 
             var tabsNav = GetComponentInChildren<TabsUINavigation>(true);
             
-            if (isMyTurn && hasNotRolledYet)
+            if (isMyTurn && hasNotRolledYet && !GameManager.EndGame)
             {
                 if (throwDiceButton != null) throwDiceButton.gameObject.SetActive(true);
                 if (tabsNav != null && tabsNav.gameObject.activeSelf)

@@ -18,8 +18,6 @@ namespace UI.Game
         private float diceAnimationSpeed;
         [Tooltip("Dice Throw Start Delay")][SerializeField] 
         private float diceThrowStartDelay;
-        [Tooltip("Dice Animation Speed")][SerializeField] 
-        private Text throwLoadingText;
 
         [Header("Dice Outputs")][Space(5)]
         [Tooltip("Left Dice")][SerializeField]
@@ -64,7 +62,6 @@ namespace UI.Game
         /// </summary>
         public void AnimateDiceOnThrow()
         {
-            throwLoadingText.text = "";
             leftDice.enabled = false;
             rightDice.enabled = false;
             
@@ -94,7 +91,6 @@ namespace UI.Game
         {
             if (left >= 1 && right >= 1)
             {
-                throwLoadingText.text = "ĐỔ ĐƯỢC:";
                 leftDice.enabled = true;
                 rightDice.enabled = true;
                 leftDice.sprite = leftDiceSprites[left - 1];
@@ -122,7 +118,6 @@ namespace UI.Game
             yield return new WaitForSeconds(delay);
             doAnimate = false;
             yield return new WaitForSeconds(0.01f);
-            throwLoadingText.text = "ĐỔ ĐƯỢC:";
             leftDice.enabled = true;
             rightDice.enabled = true;
             leftDice.sprite = leftDiceSprites[leftDiceValue - 1];
@@ -170,11 +165,9 @@ namespace UI.Game
             switch (throwingTextState)
             {
                 case 0:
-                    throwLoadingText.text = "ĐANG ĐỔ...";
                     break;
                 case 1:
                 case 2:
-                    throwLoadingText.text += ".";
                     break;
             }
 
